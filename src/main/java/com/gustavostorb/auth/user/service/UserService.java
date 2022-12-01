@@ -83,7 +83,7 @@ public class UserService {
         }
 
         if(authorizedUser.getRole() == Roles.USER && !authorizedUser.getId().equals(id)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You can only access your own data");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You only only access your own data");
         }
 
         if(updateUserDTO == null) {

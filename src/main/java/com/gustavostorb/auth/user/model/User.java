@@ -26,8 +26,6 @@ public class User {
     @Column(name="token", unique = true)
     private String token;
 
-
-
     public User(String username, String email, String password, Roles role, String token) {
         this.username = username;
         this.email = email;
