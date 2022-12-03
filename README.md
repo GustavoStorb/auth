@@ -21,7 +21,8 @@
 ```
 Authorization: {TOKEN}
 ```
-**Status Code: 204 No Content ✔️**
+**Status Code: 204 No Content ✔️**<br/>
+**Status Code: 403 Unauthorized ❌**
 
 ## GET
 `/users`  <br/>
