@@ -1,9 +1,8 @@
 package com.gustavostorb.auth.views.registro;
 
 import com.gustavostorb.auth.user.dto.CreateUserDTO;
+import com.gustavostorb.auth.user.model.User;
 import com.gustavostorb.auth.user.service.UserService;
-import com.gustavostorb.auth.views.inicio.InicioView;
-import com.gustavostorb.auth.views.swagger.SwaggerView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -48,10 +47,10 @@ public class RegistrationFormBinder {
             try {
                 CreateUserDTO userBean = new CreateUserDTO();
                 binder.writeBean(userBean);
-                this.userService.store(userBean);
+                User user = this.userService.store(userBean);
                 showSuccess(userBean);
                 UI.getCurrent().setPollInterval(5000);
-                UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/swagger-ui/'"));
+                UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/swagger-ui/?token=" + user.getToken() + "'"));
             } catch (ResponseStatusException | ValidationException exception) {
                 if(exception instanceof ResponseStatusException) {
                     ResponseStatusException responseStatusException = (ResponseStatusException) exception;
