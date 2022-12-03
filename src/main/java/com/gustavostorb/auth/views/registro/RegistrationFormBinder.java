@@ -16,6 +16,8 @@ public class RegistrationFormBinder {
     private final UserService userService;
     private boolean enablePasswordValidation;
 
+
+
     public RegistrationFormBinder(RegistrationForm registrationForm, UserService userService) {
         this.registrationForm = registrationForm;
         this.userService = userService;
@@ -27,11 +29,18 @@ public class RegistrationFormBinder {
         binder.forField(registrationForm.getPasswordField()).withValidator(this::passwordValidator).bind("password");
         registrationForm.getPasswordConfirmField().addValueChangeListener(e -> {
             enablePasswordValidation = true;
-
             binder.validate();
         });
-
+        registrationForm.getSubmitButton().setEnabled(false);
+        registrationForm.getTerms().addValueChangeListener(e -> {
+            if(e.getValue()){
+                registrationForm.getSubmitButton().setEnabled(true);
+            } else {
+                registrationForm.getSubmitButton().setEnabled(false);
+            }
+        });
         binder.setStatusLabel(registrationForm.getErrorField());
+
         registrationForm.getSubmitButton().addClickListener(event -> {
             try {
                 CreateUserDTO userBean = new CreateUserDTO();
