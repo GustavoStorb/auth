@@ -47,7 +47,7 @@ Authorization: {TOKEN}
 ## PUT
 `/users/{id}`  <br/>
 - Alterar dados da conta por id
-- É necessario passar a senha atual pra realizar a requisição
+- É obrigatorio passar a senha atual pra realizar qualquer tipo desta requisição
 - Campos que podem ser alterados: "user", "email"
 - Para alterar senha é necessario passar dois campos com mesmo valor: "password", "confirmPassword"
 
