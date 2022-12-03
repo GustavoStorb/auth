@@ -27,7 +27,7 @@ public class UserService {
     public List<User> findAll(String token) {
         User authorizedUser = this.tokenService.getUserByToken(token);
         if(authorizedUser == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário não autorizado");
         }
 
         List<User> users = authorizedUser.getRole() == Roles.ADMIN ?
@@ -41,17 +41,17 @@ public class UserService {
     public User findById(Long id, String token) {
         User authorizedUser = this.tokenService.getUserByToken(token);
         if(authorizedUser == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido!");
         }
 
         if(authorizedUser.getRole() == Roles.USER && !authorizedUser.getId().equals(id)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You can only access your own data");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Você não tem permissão para acessar este usuário!");
         }
 
         Optional<User> user = this.userRepository.findById(id);
 
         if(user.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This user does not exists.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Este usuário não existe!");
         }
 
         User userFound = user.get();
@@ -61,15 +61,15 @@ public class UserService {
 
     public User store(CreateUserDTO createUserDTO) {
         if(createUserDTO == null) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid body.");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Corpo da requisição inválido!");
         }
 
         if(this.userRepository.findByUsername(createUserDTO.getUser()) != null) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "This username is already in use.");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Este usuário já existe!");
         }
 
         if(this.userRepository.findByEmail(createUserDTO.getEmail()) != null) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "This email is already in use.");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Este email já está sendo usado!");
         }
 
         User user =  this.userRepository.save(createUserDTO.toUser());
@@ -79,20 +79,20 @@ public class UserService {
     public User update(String token, Long id, UpdateUserDTO updateUserDTO) {
         User authorizedUser = this.tokenService.getUserByToken(token);
         if(authorizedUser == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido!");
         }
 
         if(authorizedUser.getRole() == Roles.USER && !authorizedUser.getId().equals(id)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You only only access your own data");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Você não tem permissão para acessar este usuário!");
         }
 
         if(updateUserDTO == null) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid body.");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Corpo da requisição inválido!");
         }
 
         User user = this.userRepository.findById(id).orElse(null);
         if(user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This user does not exists.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Este usuário não existe!");
         }
 
         updateUserDTO.updateUser(user);
@@ -104,11 +104,11 @@ public class UserService {
     public void delete(String token, Long id){
         User authorizedUser = this.tokenService.getUserByToken(token);
         if(authorizedUser == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido!");
         }
 
         if(authorizedUser.getRole() == Roles.USER && !authorizedUser.getId().equals(id)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You can only access your own data");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Você não tem permissão para acessar este usuário!");
         }
 
         Optional<User> user = this.userRepository.findById(id);

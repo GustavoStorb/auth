@@ -9,19 +9,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @ToString()
 @Data
 public class CreateUserDTO {
 
-    @Size(min = 4, max = 255, message = "Minimum username length: 4 characters")
+    @NotNull(message = "É necessário informar um usuário")
+    @Size(min = 4, max = 255, message = "Tamanho mínimo de usuario: 4 caracteres")
     private String user;
 
     @Email
+    @NotNull(message = "É necessário informar um email")
+    @Size(min = 4, max = 255, message = "Tamanho mínimo de email: 4 caracteres")
     private String email;
 
-    @Size(min = 8, message = "Minimum password length: 8 characters")
+    @NotNull(message = "É necessário informar uma senha")
+    @Size(min = 8, message = "Tamanho mínimo de senha: 8 caracteres")
     private String password;
 
     public User toUser() {
