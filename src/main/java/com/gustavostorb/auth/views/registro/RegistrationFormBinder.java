@@ -2,6 +2,7 @@ package com.gustavostorb.auth.views.registro;
 
 import com.gustavostorb.auth.user.dto.CreateUserDTO;
 import com.gustavostorb.auth.user.service.UserService;
+import com.gustavostorb.auth.views.inicio.InicioView;
 import com.gustavostorb.auth.views.swagger.SwaggerView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
@@ -50,7 +51,7 @@ public class RegistrationFormBinder {
                 this.userService.store(userBean);
                 showSuccess(userBean);
                 UI.getCurrent().setPollInterval(5000);
-                UI.getCurrent().addPollListener(e -> UI.getCurrent().navigate(SwaggerView.class));
+                UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/swagger-ui/'"));
             } catch (ResponseStatusException | ValidationException exception) {
                 if(exception instanceof ResponseStatusException) {
                     ResponseStatusException responseStatusException = (ResponseStatusException) exception;

@@ -32,8 +32,6 @@ public class RegistrationForm extends FormLayout {
     private final Span error = new Span();
     private final Button submitButton = new Button("CADASTRO");
 
-
-
     public RegistrationForm() {
 
         H1 title = new H1("REGISTRO");
