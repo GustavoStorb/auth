@@ -49,6 +49,8 @@ public class RegistrationForm extends FormLayout {
         img.getStyle().set("filter", "invert(100%) sepia(100%) saturate(0%) hue-rotate(233deg) brightness(102%) contrast(101%)");
         img.setMaxWidth("5.3vh");
         img.getStyle().set("justify-content", "end");
+        user.getElement().setAttribute("autocomplete", "off");
+        email.getElement().setAttribute("autocomplete", "off");
         user.setPrefixComponent(VaadinIcon.USER.create());
         email.setPrefixComponent(VaadinIcon.ENVELOPE.create());
         password.setPrefixComponent(VaadinIcon.LOCK.create());
