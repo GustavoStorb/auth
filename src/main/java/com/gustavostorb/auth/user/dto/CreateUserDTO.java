@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,7 +17,7 @@ public class CreateUserDTO {
 
     @NotNull(message = "É necessário informar um usuário")
     @Size(min = 4, max = 255, message = "Tamanho mínimo de usuario: 4 caracteres")
-    private String user;
+    private String username;
 
     @Email
     @NotNull(message = "É necessário informar um email")
@@ -34,7 +33,7 @@ public class CreateUserDTO {
         String token = TokenService.generate();
 
         return new User(
-                this.user,
+                this.username,
                 this.email,
                 passwordEncoder.encode(password),
                 Roles.USER,

@@ -7,7 +7,7 @@
 **Body**
 ```
 }
-	"user": "USER",
+	"username": "USER",
 	"email": "EMAIL",
 	"password": "PASSWORD"
 }
@@ -55,7 +55,7 @@ Authorization: {TOKEN}
 **Body**
 ```
 }
-  "user": "NOVO USER",
+  "username": "NOVO USER",
   "actualPassword": "SENHA ATUAL"
 }
 ```
