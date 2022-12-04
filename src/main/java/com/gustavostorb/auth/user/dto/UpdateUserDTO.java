@@ -15,27 +15,28 @@ import javax.validation.constraints.Size;
 @Data
 public class UpdateUserDTO {
 
-    @Size(min = 4, message = "Minimum username length: 4 characters")
+    @Size(min = 4, max=255, message = "Tamanho mínimo de usuario: 4 caracteres")
     private String username;
 
     @Email(message = "Invalid email")
+    @Size(min = 4, max=255, message = "Tamanho mínimo de email: 4 caracteres")
     private String email;
 
-    @Size(min = 8, message = "Minimum password length: 8 characters")
+    @Size(min = 8, max=255, message = "Tamanho mínimo da nova senha: 8 caracteres")
     private String password;
 
-    @Size(min = 8, message = "Minimum confirmPassword length: 8 characters")
+    @Size(min = 8, max=255, message = "Tamanho mínimo da confirmação de senha: 8 caracteres")
     private String confirmPassword;
 
-    @NotNull(message = "Confirm actualPassword is required")
-    @Size(min = 8, message = "Minimum actualPassword length: 8 characters")
+    @NotNull(message = "É necessário informar uma senha")
+    @Size(min = 8, max=255, message = "Tamanho mínimo de senha: 8 caracteres")
     private String actualPassword;
 
     public void updateUser(User user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if(!encoder.matches(this.actualPassword, user.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Actual Password doesn't match");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha atual incorreta");
         }
 
         if(this.username != null) {
@@ -48,7 +49,7 @@ public class UpdateUserDTO {
 
         if(this.password != null && this.confirmPassword != null) {
             if(!this.password.equals(this.confirmPassword)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password doesn't match with confirmPassword");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senhas não conferem");
             }
 
             user.setPassword(encoder.encode(this.password));

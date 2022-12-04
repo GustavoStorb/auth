@@ -51,6 +51,8 @@ public class RegistrationFormBinder {
                 showSuccess(userBean);
                 UI.getCurrent().setPollInterval(5000);
                 UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/swagger-ui/?token=" + user.getToken() + "'"));
+
+                //
             } catch (ResponseStatusException | ValidationException exception) {
                 if(exception instanceof ResponseStatusException) {
                     ResponseStatusException responseStatusException = (ResponseStatusException) exception;
@@ -61,7 +63,7 @@ public class RegistrationFormBinder {
         });
     }
     private void showSuccess(CreateUserDTO userBean) {
-        Notification notification = Notification.show("O usuário " + userBean.getUser() + " foi criado com sucesso!", 5000, Notification.Position.TOP_END);
+        Notification notification = Notification.show("O usuário " + userBean.getUsername() + " foi criado com sucesso!", 5000, Notification.Position.TOP_END);
         notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 
     }

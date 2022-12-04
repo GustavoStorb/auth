@@ -25,7 +25,7 @@ public class UserService {
     private TokenService tokenService;
 
     public List<User> findAll(String token) {
-        User authorizedUser = this.tokenService.getUserByToken(token);
+        User authorizedUser = this.tokenService.getUserByTokenAndValidate(token);
         if(authorizedUser == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário não autorizado");
         }
@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public User findById(Long id, String token) {
-        User authorizedUser = this.tokenService.getUserByToken(token);
+        User authorizedUser = this.tokenService.getUserByTokenAndValidate(token);
         if(authorizedUser == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido!");
         }
@@ -64,7 +64,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Corpo da requisição inválido!");
         }
 
-        if(this.userRepository.findByUsername(createUserDTO.getUser()) != null) {
+        if(this.userRepository.findByUsername(createUserDTO.getUsername()) != null) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Este usuário já existe!");
         }
 
@@ -77,7 +77,7 @@ public class UserService {
         return user;
     }
     public User update(String token, Long id, UpdateUserDTO updateUserDTO) {
-        User authorizedUser = this.tokenService.getUserByToken(token);
+        User authorizedUser = this.tokenService.getUserByTokenAndValidate(token);
         if(authorizedUser == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido!");
         }
@@ -102,7 +102,7 @@ public class UserService {
         return user;
     }
     public void delete(String token, Long id){
-        User authorizedUser = this.tokenService.getUserByToken(token);
+        User authorizedUser = this.tokenService.getUserByTokenAndValidate(token);
         if(authorizedUser == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido!");
         }

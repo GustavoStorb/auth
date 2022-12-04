@@ -25,7 +25,7 @@ public class CreateUserDTO {
     private String email;
 
     @NotNull(message = "É necessário informar uma senha")
-    @Size(min = 8, message = "Tamanho mínimo de senha: 8 caracteres")
+    @Size(min = 8, max = 255, message = "Tamanho mínimo de senha: 8 caracteres")
     private String password;
 
     public User toUser() {
