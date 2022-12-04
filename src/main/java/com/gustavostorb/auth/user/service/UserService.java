@@ -35,6 +35,7 @@ public class UserService {
                         List.of(new User[]{authorizedUser});
 
         users.forEach(user -> user.setPassword(null));
+        users.forEach(user -> user.setToken(null));
         return users;
     }
 
