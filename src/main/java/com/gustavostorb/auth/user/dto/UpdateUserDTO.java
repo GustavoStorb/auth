@@ -24,7 +24,6 @@ public class UpdateUserDTO {
     @Size(min = 8, message = "Minimum password length: 8 characters")
     private String password;
 
-    @NotNull(message = "confirmPassword is required")
     @Size(min = 8, message = "Minimum confirmPassword length: 8 characters")
     private String confirmPassword;
 

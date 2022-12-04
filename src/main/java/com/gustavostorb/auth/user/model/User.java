@@ -15,11 +15,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="username", unique = true)
-    @JsonIgnore
     private String username;
     @Column(name="email", unique = true, nullable=false)
     private String email;
     @Column(name="password")
+    @JsonIgnore
     private String password;
     @Column(name="role")
     private Roles role;
