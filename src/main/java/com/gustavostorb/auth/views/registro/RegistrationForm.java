@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 
 public class RegistrationForm extends FormLayout {
 
-    @Id("user")
-    private final TextField user = new TextField("Usúario");
+    @Id("username")
+    private final TextField username = new TextField("Usúario");
 
     @Id("email")
     private final EmailField email = new EmailField("Email");
@@ -47,22 +47,22 @@ public class RegistrationForm extends FormLayout {
         img.getStyle().set("filter", "invert(100%) sepia(100%) saturate(0%) hue-rotate(233deg) brightness(102%) contrast(101%)");
         img.setMaxWidth("5.3vh");
         img.getStyle().set("justify-content", "end");
-        user.getElement().setAttribute("autocomplete", "off");
+        username.getElement().setAttribute("autocomplete", "off");
         email.getElement().setAttribute("autocomplete", "off");
-        user.setPrefixComponent(VaadinIcon.USER.create());
+        username.setPrefixComponent(VaadinIcon.USER.create());
         email.setPrefixComponent(VaadinIcon.ENVELOPE.create());
         password.setPrefixComponent(VaadinIcon.LOCK.create());
         passwordConfirm.setPrefixComponent(VaadinIcon.LOCK.create());
         submitButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        setRequiredIndicatorVisible(user, email, password, passwordConfirm);
-        add(title, img, user, email, password, passwordConfirm, terms, error, submitButton);
+        setRequiredIndicatorVisible(username, email, password, passwordConfirm);
+        add(title, img, username, email, password, passwordConfirm, terms, error, submitButton);
         
         setMaxWidth("500px");
         setResponsiveSteps(new ResponsiveStep("0", 1), new ResponsiveStep("500px", 2));
 
         setColspan(title, 2);
-        setColspan(user, 2);
+        setColspan(username, 2);
         setColspan(email, 2);
         setColspan(terms, 2);
         setColspan(error, 2);
@@ -76,6 +76,7 @@ public class RegistrationForm extends FormLayout {
     public Span getErrorField() { return error; }
     public Button getSubmitButton() { return submitButton; }
     public Checkbox getTerms() { return terms; }
+    public TextField getUsername() { return username; }
 
     private void setRequiredIndicatorVisible(HasValueAndElement<?, ?>... components) {
         Stream.of(components).forEach(comp -> comp.setRequiredIndicatorVisible(true));

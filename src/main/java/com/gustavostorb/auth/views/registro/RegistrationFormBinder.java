@@ -52,7 +52,7 @@ public class RegistrationFormBinder {
                 UI.getCurrent().setPollInterval(5000);
                 UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/swagger-ui/?token=" + user.getToken() + "'"));
 
-                //
+
             } catch (ResponseStatusException | ValidationException exception) {
                 if(exception instanceof ResponseStatusException) {
                     ResponseStatusException responseStatusException = (ResponseStatusException) exception;
