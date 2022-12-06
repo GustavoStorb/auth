@@ -127,6 +127,7 @@ public class AppNavItem extends Component {
         setIconClass(iconClass);
     }
 
+
     /**
      * Adds menu item(s) inside this item, creating a hierarchy.
      * 

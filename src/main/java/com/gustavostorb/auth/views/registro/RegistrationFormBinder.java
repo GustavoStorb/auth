@@ -4,6 +4,9 @@ import com.gustavostorb.auth.user.dto.CreateUserDTO;
 import com.gustavostorb.auth.user.model.User;
 import com.gustavostorb.auth.user.service.UserService;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -24,6 +27,8 @@ public class RegistrationFormBinder {
         this.registrationForm = registrationForm;
         this.userService = userService;
     }
+
+
 
     public void addBindingAndValidation() {
         BeanValidationBinder<CreateUserDTO> binder = new BeanValidationBinder<>(CreateUserDTO.class);
@@ -50,9 +55,9 @@ public class RegistrationFormBinder {
                 User user = this.userService.store(userBean);
                 showSuccess(userBean);
                 UI.getCurrent().setPollInterval(5000);
-                UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/swagger-ui/?token=" + user.getToken() + "'"));
+                UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/?token=" + user.getToken() + "'"));
 
-
+                
             } catch (ResponseStatusException | ValidationException exception) {
                 if(exception instanceof ResponseStatusException) {
                     ResponseStatusException responseStatusException = (ResponseStatusException) exception;
