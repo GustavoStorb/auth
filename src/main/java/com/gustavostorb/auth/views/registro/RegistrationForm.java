@@ -209,8 +209,10 @@ public class RegistrationForm extends FormLayout {
                 "formas de solicitação:\n" +
                 "1. E-mail: eleicao_justa@gmail.com.br\n" +
                 "2. Correspondência ao controlador – SENAI Florianópolis (CTAI)");
-        Button closeButton = new Button("Close");
+        Button closeButton = new Button("Fechar");
         closeButton.addClickListener(e -> dialog.close());
+        closeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
+                ButtonVariant.LUMO_ERROR);
 
         VerticalLayout dialogLayout = new VerticalLayout(headline, paragraph,
                 closeButton);

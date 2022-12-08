@@ -13,7 +13,12 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.binder.ValueContext;
+import com.vaadin.flow.router.QueryParameters;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RegistrationFormBinder {
 
@@ -55,9 +60,8 @@ public class RegistrationFormBinder {
                 User user = this.userService.store(userBean);
                 showSuccess(userBean);
                 UI.getCurrent().setPollInterval(5000);
-                UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/?token=" + user.getToken() + "'"));
+                UI.getCurrent().addPollListener(e -> UI.getCurrent().getPage().executeJs("window.location.href = '/complete?id=" + user.getId() + "'"));
 
-                
             } catch (ResponseStatusException | ValidationException exception) {
                 if(exception instanceof ResponseStatusException) {
                     ResponseStatusException responseStatusException = (ResponseStatusException) exception;
